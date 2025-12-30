@@ -1,13 +1,18 @@
 # A python script to delete log file older than 7 days. This script will be scheduled to run every day at 12:00 AM.
 import os
 import datetime
+import logging
 
 def cleanup_old_logs(log_dir, days_old=7):
-    # Step 1: Check if the given directory exists or not
+    # Step 1: Check if the given directory exists and is a directory
     print("Checking if the given directory exists or not....")
     os.system("sleep 2")
     try:
         if os.path.exists(log_dir) and os.path.isdir(log_dir):
+            # Check if the directory is empty or not
+            if not os.listdir(log_dir):
+                print("Directory is empty")
+                return 0
             print("Given directory exists and is a directory")
         else:
           print("Directory does not exists or maybe it is not a directory but a file")
@@ -16,17 +21,6 @@ def cleanup_old_logs(log_dir, days_old=7):
         print(f"Error: {e}")
         return 
 
-    # Step 2: Check if the directory is empty or not
-    print("Checking if the directory is empty or not....")
-    os.system("sleep 1")
-    try:
-        if os.listdir(log_dir):
-            print("Directory is not empty")
-        else:
-            print("Directory is empty")
-            return 
-    except Exception as e:
-        print(f"Error: {e}")
 
     # Step 3: Get the current date and time
     print("Getting the current date and time...")
@@ -56,4 +50,4 @@ def cleanup_old_logs(log_dir, days_old=7):
              continue
             
 
-cleanup_old_logs("/home/runner/workspace/automation-scripts/dump")
+cleanup_old_logs("/home/devx/Desktop/python-modules-for-devops-automation/os-module/automation-scripts")
